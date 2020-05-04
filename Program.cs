@@ -24,11 +24,12 @@ namespace PathSumTwoWays
             }
             if (fileFound)
             {
-                ParseInput(input);
+                Console.Write("Shortest path's distance: ");
+                Console.WriteLine(ParseInput(input).shortestDistance);
             } 
         }
 
-        public static void ParseInput(string input)
+        public static VertexGraph ParseInput(string input)
         {//Takes the input from the txt file an converts it into an array of ints. I have not yet done a lot of exception avoidance but may come back to do so.
             string[] formattedInput = input.Replace("\n",",").Split(',');
             Vertex[,] matrix = new Vertex[80, 80];//At the moment it is not so scalable with other problems. May come back in the future and make it mroe scalable and catch more errors.
@@ -54,7 +55,7 @@ namespace PathSumTwoWays
                     currentIndex++;
                 }
             }
-            graph = new VertexGraph(matrix[0,0], vertexList);//This calls the actual program, a graph of the entire matrix. Decided to utilize a little more memory to speed things along.
+             return graph = new VertexGraph(matrix[0,0], vertexList);//This calls the actual program, a graph of the entire matrix. Decided to utilize a little more memory to speed things along.
 
         }
     }
@@ -83,7 +84,7 @@ namespace PathSumTwoWays
         List<Vertex> vertexList;
         public int shortestDistance;
         public VertexGraph(Vertex input, List<Vertex> list)
-        {//This graph utilizes a sudo Dijkstra's shortest path algorithm. However the algorith can be simplified as we know there will always be two edges and what they will link to.
+        {//This graph utilizes a pseudo Dijkstra's shortest path algorithm. However the algorith can be simplified as we know there will always be two edges and what they will link to.
          //Also the values of the edges are just based on the values of the nodes vertices themselves
             StartVertex = input;
             StartVertex.distance = StartVertex.GetValue();
